@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gym_rnd/src/screens/alert_dialog.dart';
 
 class SwipeDismiss extends StatefulWidget {
   @override
@@ -7,8 +6,47 @@ class SwipeDismiss extends StatefulWidget {
 }
 
 class _SwipeDismissState extends State<SwipeDismiss> {
-  final List<String> values =
-      List<String>.generate(10, (index) => "value of $index");
+  final List<String> values = [
+    "Inducesmile.com",
+    "Flutter Dev",
+    "Android Dev",
+    "iOS Dev!",
+    "React Native Dev!",
+    "React Dev!",
+    "express Dev!",
+    "Laravel Dev!",
+    "Angular Dev!",
+    "Adonis Dev!",
+    "Next.js Dev!",
+    "Node.js Dev!",
+    "Vue.js Dev!",
+    "Java Dev!",
+    "C# Dev!",
+    "C++ Dev!",
+  ];
+
+  ScrollController controller = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        loadMore();
+      }
+    });
+  }
+
+  loadMore() {
+    setState(() {
+      values..addAll(List<String>.from(values));
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,44 +54,18 @@ class _SwipeDismissState extends State<SwipeDismiss> {
       appBar: AppBar(
         title: Text('Swipe to delete'),
       ),
-      body: ListView.builder(
+      body: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: ListView.builder(
           itemCount: values.length,
+          controller: controller,
           itemBuilder: (context, index) {
-            return Dismissible(
-              background: Container(
-                color: Colors.red,
-                padding: EdgeInsets.only(left: 16.0),
-                child: Align(
-                  child: Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                  ),
-                  alignment: Alignment.centerLeft,
-                ),
-              ),
-              //key identifies the unqiue value
-              key: ValueKey(index),
-              //key: Key(index.toString()),
-              //direction based on the user interaction either left to right or vice versa
-              direction: DismissDirection.startToEnd,
-              onDismissed: (dismisDirection) {},
-              confirmDismiss: (dismissDirection) async {
-                final result = await showDialog(
-                  context: (context),
-                  builder: (context) => DeletePopup(),
-                );
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('$index is deleted'),
-                  ),
-                );
-                return result;
-              },
-              child: ListTile(
-                title: Center(child: Text("Hi this is $index")),
-              ),
+            return ListTile(
+              title: Text('The value of ${values[index]}'),
             );
-          }),
+          },
+        ),
+      ),
     );
   }
 }
