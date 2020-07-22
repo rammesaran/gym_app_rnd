@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/swipe_delete.dart';
+import 'screens/select_all.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SwipeDismiss(),
+      home: SelectScreen(),
     );
   }
 }
