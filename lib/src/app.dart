@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'screens/select_all.dart';
+import 'package:gym_rnd/src/screens/shimmer.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SelectScreen(),
+      home: LoadingListPage(),
     );
   }
 }
